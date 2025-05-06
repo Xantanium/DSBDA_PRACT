@@ -1,21 +1,13 @@
 #!/usr/bin/env python3
-import sys
 
-current_ip = None
-count = 0
+import sys
+from collections import defaultdict
+
+ip_count = defaultdict(int)
 
 for line in sys.stdin:
-    ip, val = line.strip().split('\t')
-    val = int(val)
-    if ip == current_ip:
-        count += val
-    else:
-        if current_ip:
-            print(f"{current_ip}\t{count}")
-        current_ip = ip
-        count = val
+    ip, count = line.strip().split('\t')
+    ip_count[ip] += int(count)
 
-# Last key
-if current_ip:
-    print(f"{current_ip}\t{count}")
-
+for ip, count in ip_count.items():
+    print(f"{ip}\t{count}")
